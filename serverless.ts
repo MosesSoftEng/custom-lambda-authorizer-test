@@ -22,7 +22,7 @@ const serverlessConfiguration: AWS = {
 	functions: {
 		// Custom token authorizer lambda function definition.
 		auth: {
-			handler: "src/functions/auth.auth",
+			handler: "src/functions/auth/handler.auth",
 		},
 		hello,
 	},
