@@ -1,3 +1,35 @@
+# How to setup custom token authorizer in serverless.
+
+1. Create a custom authorizer function. See example name auth in [src/functions/auth/handler.ts](src/functions/auth/handler.ts)
+2. Add the auth lambda function definition in serverless.ts under function property.
+
+```javascript
+	functions: {
+		auth: {
+			handler: "src/functions/auth.auth",
+		},
+	.......
+```
+
+3. For lambda function requiring authorization add the authorizer property with name of authorizing function in step 1. See example in [src/functions/hello/index.ts](src/functions/hello/index.ts)
+
+```javascript
+	.................
+				authorizer: {
+					name: 'auth',
+				}
+	..................
+```
+
+4. Deploy the changes using `sls deploy`. Test the authorization using the returned endpoint url. Example using CURL
+
+```bash
+curl --location '<RETURNED_ENDPOINT_URL>' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer sample-token-here' \
+--data '{"name": "serverless"}'
+```
+
 # Serverless - AWS Node.js Typescript
 
 This project has been generated using the `aws-nodejs-typescript` template from the [Serverless framework](https://www.serverless.com/).
