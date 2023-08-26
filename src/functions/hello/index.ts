@@ -1,19 +1,23 @@
-import schema from './schema';
-import { handlerPath } from '@libs/handler-resolver';
+import schema from "./schema";
+import { handlerPath } from "@libs/handler-resolver";
 
 export default {
-  handler: `${handlerPath(__dirname)}/handler.main`,
-  events: [
-    {
-      http: {
-        method: 'post',
-        path: 'hello',
-        request: {
-          schemas: {
-            'application/json': schema,
-          },
-        },
-      },
-    },
-  ],
+	handler: `${handlerPath(__dirname)}/handler.main`,
+	events: [
+		{
+			http: {
+				method: "post",
+				path: "hello",
+				request: {
+					schemas: {
+						"application/json": schema,
+					},
+				},
+				// Add authorizer property with name of custom authorizer function.
+				authorizer: {
+					name: 'auth',
+				}
+			},
+		},
+	],
 };
